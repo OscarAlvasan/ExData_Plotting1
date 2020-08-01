@@ -1,0 +1,5 @@
+## Plot 2 With same subdata dataset
+png(file="plot2.png")
+plot(subdata$DT, subdata$Global_active_power, type = "n", xlab = "", ylab = "Global active Power (Kilowatts)")
+lines(subdata$DT, subdata$Global_active_power)
+dev.off()
