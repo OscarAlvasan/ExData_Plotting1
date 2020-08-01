@@ -18,6 +18,6 @@ DataWeek1$DT<-dmy_hms(DataWeek1$DT)
 subdata<-subset(DataWeek1, DT>= ymd_hms("2007-02-01 00:00:00") & DT<= ymd_hms("2007-02-03 00:00:00"))
 
 ## Plot
-png(file="plot1.png")
+png(file="plot1.png",  width = 480, height = 480)
 hist(subdata$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global active Power (Kilowatts)")
 dev.off()
