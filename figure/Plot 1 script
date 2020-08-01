@@ -1,0 +1,26 @@
+library(lubridate)
+library(dplyr)
+
+urlproject<-"https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+download.file(urlproject, destfile = "./householdenergy.zip")
+unzip("D:/householdenergy.zip", exdir ="D:/")
+
+DataWeek1<-read.csv("D:/household_power_consumption.txt",header = F, skip =23000, nrows = 50000, sep = ";" )
+col<-read.csv("D:/household_power_consumption.txt", nrows = 1, sep = ";")
+View(col)
+colnames(DataWeek1)<-colnames(col)
+
+for (i in 3:9){ DataWeek1[,i] <- as.numeric(DataWeek1[,i])}
+
+DataWeek1$DT<-paste(DataWeek1$Date, DataWeek1$Time)
+DataWeek1$DT<-dmy_hms(DataWeek1$DT)
+View(DataWeek1)
+str(DataWeek1)
+
+subdata<-subset(DataWeek1, DT>= ymd_hms("2007-02-01 00:00:00") & DT<= ymd_hms("2007-02-03 00:00:00"))
+
+png(file="plot1.png",  width = 480, height = 480)
+
+hist(subdata$Global_active_power, col = "red", main = "Global Active Power", xlab = "Global active Power (Kilowatts)")
+
+dev.off()
